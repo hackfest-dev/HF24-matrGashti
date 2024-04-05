@@ -1,3 +1,4 @@
+import React from 'react'
 const OTP = () => {
     return (
       <div className="mx-auto max-w-md mt-8 p-6 bg-white rounded-lg shadow-md">
