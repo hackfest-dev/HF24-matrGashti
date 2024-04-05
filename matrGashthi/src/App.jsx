@@ -1,20 +1,10 @@
-import Navbar from "./components/Navigation"
-import AboutComponent from "./components/about_us"
-import DummyList from "./components/dummylist"
-import FoodList from "./components/foodCom"
-import Footer from "./components/Footer"
-import Otp from "./components/otp"
-import Order from "./components/Order"
+import Profile from "./pages/Profile"
+import Reviews from "./pages/Reviews"
 export default function App(){
   return(
-    <>
-    <Navbar/>
-    <Order/>
-    <DummyList/>
-    <AboutComponent/>
-    <FoodList/>
-    <Otp/>
-    <Footer/>
-    </>
+    <div>
+      <Profile/>   
+      <Reviews/>
+    </div>
   )
 }
