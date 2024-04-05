@@ -1,7 +1,8 @@
-import Navbar from "./components/Navigation"
-
+import Profile from "./pages/Profile"
 export default function App(){
   return(
-    <Navbar/>
+    <div>
+      <Profile/>   
+    </div>
   )
 }
