@@ -1,6 +1,6 @@
 import React from 'react';
 import food1Image from '../assets/food1.jpg';
-const FoodList = () => {
+const FoodList = (props) => {
     return (
         <div className='mx-2'>
         {/* Dummy item 1 */}
