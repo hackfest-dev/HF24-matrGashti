@@ -44,12 +44,30 @@ function verifyToken(req,  res, next) {
   });
 }
 
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
+app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 app.use(cookieParser());  
+
+app.use((req, res, next) => {
+  res.locals.curUser = req.user;
+  res.locals.tokens=req.token;
+  next();
+});
 
 app.listen(port, () => {
   console.log("server is running");

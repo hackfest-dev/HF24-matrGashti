@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 export default function Navbar(){
     return(
        <div className="h-20 p-10 w-full bg-red-400 flex justify-between items-center">
@@ -10,21 +11,28 @@ export default function Navbar(){
             </svg>
         </button>
         <div className="hidden lg:flex lg:items-center lg:space-x-4">
-            <button className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
+            <Link to="/Home" className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
+                <span className="absolute inset-0 bg-white opacity-25"></span>
+                Home
+            </Link>
+            <Link to="/Food" className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
                 <span className="absolute inset-0 bg-white opacity-25"></span>
                 Food
-            </button>
-            <button className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
+            </Link>
+            <Link to="/Donate" className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
                 <span className="absolute inset-0 bg-white opacity-25"></span>
                 Donate
-            </button>
-            <button className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
+            </Link>
+            <Link to="/About" className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
                 <span className="absolute inset-0 bg-white opacity-25"></span>
                 About
-            </button>
+            </Link>
+            <Link to="/Profile" className="relative overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-2 px-4 transition duration-300 ease-in-out">
+                <span className="absolute inset-0 bg-white opacity-25"></span>
+                Profile
+            </Link>
         </div>
     </div>
 </div>
-
     )
 }

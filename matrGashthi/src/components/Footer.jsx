@@ -11,9 +11,9 @@ export default function Footer() {
             <p className="text-sm">Let's reduce food wastage together</p>
           </div>
           <div className="flex space-x-8">
-            <a href="/" className="text-white text-sm hover:text-gray-200">About</a>
-            <a href="/" className="text-white text-sm hover:text-gray-200">Food</a>
-            <a href="/" className="text-white text-sm hover:text-gray-200">Donate</a>
+            <a href="/About" className="text-white text-sm hover:text-gray-200">About</a>
+            <a href="/Food" className="text-white text-sm hover:text-gray-200">Food</a>
+            <a href="/Donate" className="text-white text-sm hover:text-gray-200">Donate</a>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faFacebook} className="text-white text-lg hover:text-gray-200" />

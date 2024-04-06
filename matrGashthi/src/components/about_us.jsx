@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutComponent = () => {
   return (
-    <div className="mx-24 mt-5 px-4 py-8 bg-white shadow-md rounded-lg">
+    <div className="mx-24 mt-5 px-4 py-8 mb-10 bg-white shadow-md rounded-lg">
       <h2 className="text-4xl font-bold mb-4 text-center">Our Mission</h2>
       <p className="text-gray-700 mb-4 text-2xl">
         Our innovative platform offers a real-time system designed to connect surplus food from various sources 

@@ -3,14 +3,14 @@ import Order from "../components/Order"
 import profile from "../assets/profile.png"
 import Footer from "../components/Footer"
 import axios from 'axios';
-import { response } from "express";
+// import { response } from "express";
 
 
 
 export default function Profile(){
 
     async function getData(){
-        let data = await axios.get(`http://localhost:3001/profile/${}`, response);
+        let data = await axios.get(`http://localhost:3001/profile/${123}`, response);
 
     }
     return(

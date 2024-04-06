@@ -58,8 +58,15 @@ export default function Signup() {
           },
         }
       );
-      setTokens(response);
       console.log(`response id ${response}`);
+
+      if (response.success) {
+        localStorage.setItem("auth-token", response.token);
+        window.location.replace("/");
+        console.log(localStorage.getItem("auto-token"));
+      } else {
+        alert(response.errors);
+      }
     } else if (login) {
       const response = await axios.post(
         "http://localhost:3001/login",
