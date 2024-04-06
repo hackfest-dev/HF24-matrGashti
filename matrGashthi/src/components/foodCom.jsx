@@ -2,11 +2,11 @@ import React from 'react';
 import food1Image from '../assets/food1.jpg';
 const FoodList = () => {
     return (
-        <div className='mx-80'>
+        <div className='mx-2'>
         {/* Dummy item 1 */}
-        <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex">
+        <div className="bg-white justify-left items-center shadow-md rounded-lg p-4 mb-4 flex">
           <div>
-            <img src={food1Image} alt="Food 1" className="w-80 h-32 object-cover mb-4 rounded-lg" />
+            <img src={food1Image} alt="Food 1" className="w-80 h-32 object-cover rounded-lg" />
           </div>
           <div className="ml-4">
             <h2 className="text-lg font-semibold mb-2">Durga</h2>
