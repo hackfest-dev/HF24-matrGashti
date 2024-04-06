@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import About from './components/about_us';
 import Booking from './pages/Booking';
 import Food from './pages/Food';
+import Menu from './pages/Menu'
 
 
 export default function App(){
@@ -20,6 +21,7 @@ export default function App(){
       <Route path='/About' element={<About/>}/>
       <Route path='/Booking' element={<Booking/>}/>
       <Route path="/Profile" element={<Profile/>}/>
+      <Menu />
     </Routes>
   )
 }
