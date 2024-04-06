@@ -1,9 +1,11 @@
 import Update from "./components/UpdateProfile"
-import Home from "./pages/Home"
+import Signup from "./pages/Signup"
 export default function App(){
   return(
     <div>
-      <Home/>
+      {/* <Update/> */}
+      <Signup/>
+      
     </div>
   )
 }

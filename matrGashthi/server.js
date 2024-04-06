@@ -110,7 +110,7 @@ app.post("/upload/:userId", async (req,  res) => {
     });
 
     // Create the menu items and associate them with the newly created menu
-    const menuItems = await Promise.all(
+    await Promise.all(
       items.map(async (item) => {
         const newItem = await prisma.menuItem.create({
           data: {
@@ -139,7 +139,7 @@ app.post("/rating/:raterId/:donorId", (req,  res) => {
 
 app.post("/profile/new", async (req,  res) => {
   try {
-    const { email, name, password, location, role } = req.body;
+    const { email, name, password, latitude,longitude, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user using Prisma
@@ -148,12 +148,15 @@ app.post("/profile/new", async (req,  res) => {
         email,
         name,
         password: hashedPassword, // Note: You should hash the password before storing it in the database
-        location,
-        role,
+        latitude,
+        longitude,
+        role: "user",
       },
     });
 
-    return res.status(201).json(newUser); // Respond with the newly created user
+    return res.status(201).json(newUser); 
+    // Respond with the newly created user
+    // console.log(req.body);
 
   } catch (error) {
     console.error("Error creating user:", error);
