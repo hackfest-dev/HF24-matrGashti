@@ -1,76 +1,145 @@
-import { TextField, Box, Typography, Button } from '@mui/material';
-import { useState } from 'react';
-import Navbar from '../components/Navigation';
-import Footer from '../components/Footer';
-
+import { TextField, Box, Typography, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navigation";
+import Footer from "../components/Footer";
+import axios from 'axios'
 export default function Signup() {
-    const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    function changeState() {
-        setLogin(prevState => !prevState);
-    }
+  const [curLocation,setCurLocation]=useState({});
 
-    return (
-        <>
-            <Navbar/>
-            <Box
-                component="form"
-                sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
-                    marginTop:'70px',
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    backgroundPosition: "center",
-                }}
-                noValidate
-                autoComplete="off"
+  function changeState() {
+    setLogin((prevState) => !prevState);
+  }
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
+
+  async function getlocation(){
+    const location = await axios.get("https://ipapi.co/json"); // You can handle the form data here (e.g., send it to the server)
+    setCurLocation(location.data);
+  }
+
+  useEffect(()=>{
+     getlocation();
+  },[])
+   
+ async function handleSubmit(event) {
+    event.preventDefault();
+    console.log(formData); 
+
+    //  const location = await fetch("https://ipapi.co/json"); // You can handle the form data here (e.g., send it to the server)
+    //  setCurLocation(location.data);
+    let data = {
+      name: formData.name,
+      password: formData.password,
+      email: formData.email,
+      latitude: curLocation.latitude,
+      longitude: curLocation.longitude,
+    };
+  console.log(data)
+const response = await axios.post("http://localhost:3001/profile/new", data, {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+});
+  console.log(`response id ${response}`);
+  }
+
+  return (
+    <>
+   
+      <Navbar />
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+          marginTop: "70px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundPosition: "center",
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit} // Attach onSubmit event handler
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            backgroundColor: "antiquewhite",
+            padding: "50px",
+            borderRadius: "10px",
+          }}
+        >
+          <Typography variant="h5" mb={3}>
+            {login ? "Login" : "Create Account"}
+          </Typography>
+          {!login && (
+            <>
+              <TextField
+                required
+                id="outlined-required"
+                label="Name"
+                name="name" // Add name attribute
+                value={formData.name} // Set value from state
+                onChange={handleInputChange} // Handle change
+              />
+            </>
+          )}
+          <TextField
+            required
+            id="outlined-required"
+            label="Email id"
+            name="email" // Add name attribute
+            value={formData.email} // Set value from state
+            onChange={handleInputChange} // Handle change
+          />
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            name="password" // Add name attribute
+            value={formData.password} // Set value from state
+            onChange={handleInputChange} // Handle change
+          />
+          <Typography variant="p" mt={3}>
+            {!login ? "Already Registered? " : "New? "}
+            <Button
+              onClick={changeState}
+              color="primary"
+              sx={{ textTransform: "none" }}
             >
-                <div style={{
-                    display:'flex',
-                    flexDirection:'column',
-                    justifyContent:'space-evenly',
-                    alignItems:'center',
-                    backgroundColor:'antiquewhite',
-                    padding:'50px',
-                    borderRadius:'10px'
-                }}>
-                    <Typography variant='h5' mb={3}>
-                        {login ? "Login" : "Create Account"}
-                    </Typography>
-                    {!login && (
-                        <>
-                            <TextField
-                                required
-                                id="outli   ned-required"
-                                label="Name"
-                            />
-                        </>
-                    )}
-                    <TextField
-                                required
-                                id="outlined-required"
-                                label="Email id"
-                            />
-                    <TextField
-                        required
-                        id="outlined-password-input"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                    />
-                    <Typography variant='p' mt={3}>
-                        {!login ? "Already Registered? " : "New? "}
-                        <Button onClick={changeState} color="primary" sx={{textTransform: 'none'}}>
-                            {!login ? "Login Here" : "Register Here"}
-                        </Button>
-                    </Typography>
-                    <Button variant="contained" color="success" sx={{marginTop:'12px'}}>
-                        {!login ? "Register" : "Login"}
-                    </Button>
-                </div>
-            </Box>
-            <Footer/>
-        </>
-    );
+              {!login ? "Login Here" : "Register Here"}
+            </Button>
+          </Typography>
+          <Button
+            type="submit" // Set type as submit
+            variant="contained"
+            color="success"
+            sx={{ marginTop: "12px" }}
+          >
+            {!login ? "Register" : "Login"}
+          </Button>
+        </div>
+      </Box>
+
+      <br></br>
+      <br></br>
+      <Footer />
+    </>
+  );
 }

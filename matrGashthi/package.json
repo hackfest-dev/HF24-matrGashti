@@ -12,10 +12,14 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+<<<<<<< HEAD
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.15.15",
+=======
+>>>>>>> cfabb5112d78f784be7dba5a373407d5df066883
     "@mui/material": "^5.15.15",
     "@prisma/client": "^5.12.1",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

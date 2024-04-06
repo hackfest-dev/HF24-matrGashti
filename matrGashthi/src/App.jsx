@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Booking from "./pages/Booking"
 import AddItem from "./components/AddItem"
 import Navbar from "./components/Navigation"
@@ -14,5 +15,16 @@ export default function App(){
       {/* <Route path='/Food' element={<Food/>}/> */}
       <Route path='/Booking' element={<Booking/>}/>
     </Routes>
+=======
+import Update from "./components/UpdateProfile"
+import Signup from "./pages/Signup"
+export default function App(){
+  return(
+    <div>
+      {/* <Update/> */}
+      <Signup/>
+      
+    </div>
+>>>>>>> cfabb5112d78f784be7dba5a373407d5df066883
   )
 }

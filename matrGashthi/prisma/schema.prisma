@@ -18,7 +18,8 @@ model User {
   email    String   @unique
   name     String
   password String
-  location String
+  latitude String ?
+  longitude String ?
   role     String
   menus    Menu[] // Changed `Menu` to `Menu[]`
   ratings  Rating[]
