@@ -45,13 +45,28 @@ export default function Signup() {
       latitude: curLocation.latitude,
       longitude: curLocation.longitude,
     };
+    let loginData={
+        username:formData.name,
+        password:formData.password,
+    }
   console.log(data)
-const response = await axios.post("http://localhost:3001/profile/new", data, {
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-});
-  console.log(`response id ${response}`);
+  if(!login){
+        const response = await axios.post("http://localhost:3001/profile/new", data, {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        });
+        console.log(`response id ${response}`);
+}
+
+else if(login){
+    const response = await axios.post("http://localhost:3001/login", loginData, {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        });
+        console.log(`response id ${response}`);
+}
   }
 
   return (
