@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navigation";
 import Footer from "../components/Footer";
 import axios from 'axios'
+import App from '../App'
 export default function Signup() {
   const [login, setLogin] = useState(false);
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ export default function Signup() {
     email: "",
     password: "",
   });
+
+  let [tokens, setTokens] = useState("");
 
   const [curLocation,setCurLocation]=useState({});
 
@@ -56,6 +59,7 @@ export default function Signup() {
             "Content-Type": "application/x-www-form-urlencoded",
         },
         });
+        setTokens(response);
         console.log(`response id ${response}`);
 }
 
@@ -66,13 +70,19 @@ else if(login){
         },
         });
         console.log(`response id ${response}`);
+         setTokens(response);
 }
   }
 
   return (
+
+
+
     <>
-   
-      <Navbar />
+    {tokens? (<App/>): ""  }
+
+
+    <Navbar />
       <Box
         component="form"
         sx={{

@@ -256,8 +256,8 @@ app.post("/login", async (req,  res) => {
            maxAge: 3600000,
          }); 
          console.log("cookie")
-         console.log(req);
-         console.log("cookie");
+        //  console.log();
+         console.log(token);
         return res.json({ success: true, token });
      
       } else {
