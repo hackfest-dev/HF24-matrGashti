@@ -39,7 +39,7 @@
 // }
 
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Navbar from '../components/Navigation';
 import FoodCom from '../components/foodCom';
 import Footer from '../components/Footer'; // Import your FoodCom component
@@ -54,7 +54,7 @@ export default function Food() {
     async function getFoods(){
 const url = "http://localhost:3001/food";
  await fetch(url)
-   .then((response) => {
+   .then((response) => {3
      if (!response.ok) {
        throw new Error("Network response was not ok");
      }
@@ -79,15 +79,15 @@ const url = "http://localhost:3001/food";
             setData(value);
         }
     }
-//    useEffect(() => {
-   
-//    }, []); 
+   useEffect(() => {
+     getFoods();
+   }, []); 
     function handleSubmit(e) {
     
         e.preventDefault(); // Prevents the default form submission behavior
         console.log(data);
         setShowFoodCom(true); // Show FoodCom components when form is submitted
-         getFoods();
+       
     }
 
     // Array to hold FoodCom components
