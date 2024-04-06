@@ -1,10 +1,9 @@
-import Profile from "./pages/Profile"
-import Reviews from "./pages/Reviews"
 import Update from "./components/UpdateProfile"
+import Home from "./pages/Home"
 export default function App(){
   return(
     <div>
-      <Update/>
+      <Home/>
     </div>
   )
 }
