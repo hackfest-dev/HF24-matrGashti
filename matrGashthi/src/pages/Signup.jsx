@@ -2,9 +2,11 @@ import { TextField, Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navigation";
 import Footer from "../components/Footer";
-import axios from 'axios';
-
+import axios from "axios";
+import App from "../App";
 export default function Signup() {
+  let [tokens,setTokens]=useState("");
+  
   const [login, setLogin] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -12,7 +14,7 @@ export default function Signup() {
     password: "",
   });
 
-  const [curLocation,setCurLocation]=useState({});
+  const [curLocation, setCurLocation] = useState({});
 
   function changeState() {
     setLogin((prevState) => !prevState);
@@ -23,16 +25,16 @@ export default function Signup() {
     setFormData({ ...formData, [name]: value });
   }
 
-  async function getlocation(){
+  async function getlocation() {
     const location = await axios.get("https://ipapi.co/json");
     setCurLocation(location.data);
   }
 
-  useEffect(()=>{
-     getlocation();
-  },[]);
-   
- async function handleSubmit(event) {
+  useEffect(() => {
+    getlocation();
+  }, []);
+
+  async function handleSubmit(event) {
     event.preventDefault();
     let data = {
       name: formData.name,
@@ -41,34 +43,57 @@ export default function Signup() {
       latitude: curLocation.latitude,
       longitude: curLocation.longitude,
     };
-    let loginData={
-        username:formData.name,
-        password:formData.password,
-    }
-  console.log(data)
-  if(!login){
-        const response = await axios.post("http://localhost:3001/profile/new", data, {
-        headers: {
+    let loginData = {
+      username: formData.name,
+      password: formData.password,
+    };
+    console.log(data);
+    if (!login) {
+      const response = await axios.post(
+        "http://localhost:3001/profile/new",
+        data,
+        {
+          headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-        },
-        });
-        console.log(`response id ${response}`);
-}
+          },
+        }
+      );
+      console.log(`response id ${response}`);
 
-else if(login){
-    const response = await axios.post("http://localhost:3001/login", loginData, {
-        headers: {
+      if (response.success) {
+        localStorage.setItem("auth-token", response.token);
+        window.location.replace("/");
+        console.log(localStorage.getItem("auto-token"));
+      } else {
+        alert(response.errors);
+      }
+    } else if (login) {
+      const response = await axios.post(
+        "http://localhost:3001/login",
+        loginData,
+        {
+          headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-        },
-        });
-        console.log(`response id ${response}`);
-}
+          },
+        }
+      );
+      setTokens(response);
+      console.log(`response id ${response}`);
+    }
   }
 
   return (
     <>
-      <Navbar />
-      <div style={{ backgroundColor: "white",minHeight:'70vh',padding: "20px" }}>
+      {!tokens ? <Navbar /> : ""}
+
+      {tokens ? <App /> : ""}
+      <div
+        style={{
+          backgroundColor: "white",
+          minHeight: "100vh",
+          padding: "20px",
+        }}
+      >
         <Box
           component="form"
           sx={{
@@ -149,7 +174,7 @@ else if(login){
       </div>
       <br></br>
       <br></br>
-      <Footer />
+      {!tokens ? <Footer /> : ""}
     </>
   );
 }

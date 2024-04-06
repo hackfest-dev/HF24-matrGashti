@@ -11,8 +11,8 @@ export default function Ehome(){
                 <Dummy/>
                 <div className="flex justify-center items-center mt-10 flex-col w-full">
                 <h1 className="text-6xl font-bold">Make an impact by donating food today</h1>
-                <button class="relative mt-5 overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-3 px-5 transition duration-300 ease-in-out">
-                <span class="absolute inset-0 bg-white opacity-25"></span>
+                <button className="relative mt-5 overflow-hidden bg-red-500 hover:bg-red-600 focus:bg-red-600 active:bg-red-700 rounded-md text-white py-3 px-5 transition duration-300 ease-in-out">
+                <span className="absolute inset-0 bg-white opacity-25"></span>
                 Donate
             </button>
                 </div>

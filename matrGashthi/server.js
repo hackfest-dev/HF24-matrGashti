@@ -44,12 +44,30 @@ function verifyToken(req,  res, next) {
   });
 }
 
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
+app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 app.use(cookieParser());  
+
+app.use((req, res, next) => {
+  res.locals.curUser = req.user;
+  res.locals.tokens=req.token;
+  next();
+});
 
 app.listen(port, () => {
   console.log("server is running");
@@ -169,12 +187,15 @@ app.post("/profile/new", async (req,  res) => {
     };
     const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
     // console.log(newUser,token);
-    res.cookie("token", token, {
+    res.cookie("Token", token, {
       httpOnly: true,
       secure: true,
       maxAge: 3600000,
     }); 
     let Token = req.cookies.token;
+     console.log("cookie");
+     console.log(req.cookies.Token);
+     console.log("cookie");
     console.log({ success: true, token, cookie: req.cookies });
     return res.json({ success: true, token, cookie: Token });
      
@@ -250,14 +271,16 @@ app.post("/login", async (req,  res) => {
         };
         const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
         console.log(token);
-         res.cookie("token", token, {
+         res.cookie("Token", token, {
            httpOnly: true,
            secure: true,
            maxAge: 3600000,
          }); 
+
          console.log("cookie")
-         console.log(req);
+         console.log(req.cookies.Token);
          console.log("cookie");
+         console.log(token);
         return res.json({ success: true, token });
      
       } else {
@@ -282,25 +305,56 @@ app.get("/protected", verifyToken, (req,  res) => {
 
 });
 
-app.put("/order/:id/:menuID", async (req,  res) => {
+
+app.post("/order/:userId/:menuId", async (req, res) => {
   try {
-    // Extract data from the request body
-    const { id, menuID } = req.params;
+    const { userId, menuId } = req.params;
+    const { status, address, items } = req.body;
 
-    // Create the menu items
-
+    // Create the order
     const newOrder = await prisma.order.create({
       data: {
-        userId: id,
-        menuId: menuID,
-        status: "made",
+        status,
+        address,
+        userId,
+        menuId,
+        orderItems: {
+          createMany: {
+            data: items.map((item) => ({
+              name: item.name,
+              quantity: item.quantity,
+            })),
+          },
+        },
+      },
+      include: {
+        orderItems: true,
       },
     });
 
-    return res.status(201).json(newOrder);
-
+    res.status(201).json(newOrder);
   } catch (error) {
-    console.error("Error Ordering menu:", error);
-    return res.status(500).send("Internal Server Error");
+    console.error("Error creating order:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+app.get("/order/:id", async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { orderItems: true },
+    });
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
