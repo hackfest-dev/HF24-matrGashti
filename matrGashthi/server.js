@@ -169,12 +169,15 @@ app.post("/profile/new", async (req,  res) => {
     };
     const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
     // console.log(newUser,token);
-    res.cookie("token", token, {
+    res.cookie("Token", token, {
       httpOnly: true,
       secure: true,
       maxAge: 3600000,
     }); 
     let Token = req.cookies.token;
+     console.log("cookie");
+     console.log(req.cookies.Token);
+     console.log("cookie");
     console.log({ success: true, token, cookie: req.cookies });
     return res.json({ success: true, token, cookie: Token });
      
@@ -250,13 +253,15 @@ app.post("/login", async (req,  res) => {
         };
         const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
         console.log(token);
-         res.cookie("token", token, {
+         res.cookie("Token", token, {
            httpOnly: true,
            secure: true,
            maxAge: 3600000,
          }); 
+
          console.log("cookie")
-        //  console.log();
+         console.log(req.cookies.Token);
+         console.log("cookie");
          console.log(token);
         return res.json({ success: true, token });
      

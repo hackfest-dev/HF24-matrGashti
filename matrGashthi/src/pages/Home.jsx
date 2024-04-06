@@ -64,6 +64,8 @@ const Home = () => {
           onClick={goToNextPicture}
         />
       </div>
+      <hr />
+      
     </div>
   );
 };
