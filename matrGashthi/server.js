@@ -305,25 +305,56 @@ app.get("/protected", verifyToken, (req,  res) => {
 
 });
 
-app.put("/order/:id/:menuID", async (req,  res) => {
+
+app.post("/order/:userId/:menuId", async (req, res) => {
   try {
-    // Extract data from the request body
-    const { id, menuID } = req.params;
+    const { userId, menuId } = req.params;
+    const { status, address, items } = req.body;
 
-    // Create the menu items
-
+    // Create the order
     const newOrder = await prisma.order.create({
       data: {
-        userId: id,
-        menuId: menuID,
-        status: "made",
+        status,
+        address,
+        userId,
+        menuId,
+        orderItems: {
+          createMany: {
+            data: items.map((item) => ({
+              name: item.name,
+              quantity: item.quantity,
+            })),
+          },
+        },
+      },
+      include: {
+        orderItems: true,
       },
     });
 
-    return res.status(201).json(newOrder);
-
+    res.status(201).json(newOrder);
   } catch (error) {
-    console.error("Error Ordering menu:", error);
-    return res.status(500).send("Internal Server Error");
+    console.error("Error creating order:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+app.get("/order/:id", async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { orderItems: true },
+    });
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    res.status(500).send("Internal Server Error");
   }
 });

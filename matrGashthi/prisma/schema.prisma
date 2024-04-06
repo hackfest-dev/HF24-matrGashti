@@ -14,17 +14,17 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  name     String
-  password String
-  latitude String ?
-  longitude String ?
-  role     String
-  menus    Menu[] // Changed `Menu` to `Menu[]`
-  ratings  Rating[]
-  review   Review[] // Changed `review` to `review[]`
-  orders   Order[] // Changed `order` to `orders[]`
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String
+  password  String
+  latitude  String?
+  longitude String?
+  role      String
+  menus     Menu[] // Changed `Menu` to `Menu[]`
+  ratings   Rating[]
+  review    Review[] // Changed `review` to `review[]`
+  orders    Order[] // Changed `order` to `orders[]`
 }
 
 model Menu {
@@ -40,11 +40,19 @@ model Menu {
 }
 
 model MenuItem {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   quantity String
-  Menu   Menu?   @relation(fields: [menuId], references: [id])
-  menuId String? @db.ObjectId
+  Menu     Menu?   @relation(fields: [menuId], references: [id])
+  menuId   String? @db.ObjectId
+}
+
+model OrderItem {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  quantity String
+  Order    Order?  @relation(fields: [orderId], references: [id])
+  orderId  String? @db.ObjectId
 }
 
 model Rating {
@@ -58,12 +66,13 @@ model Rating {
 }
 
 model Order {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
   status  String
   address String
-  user    User   @relation(fields: [userId], references: [id])
+  order   OrderItem[]
+  user    User        @relation(fields: [userId], references: [id])
   userId  String
-  menu    Menu   @relation(fields: [menuId], references: [id])
+  menu    Menu        @relation(fields: [menuId], references: [id])
   menuId  String
 }
 
