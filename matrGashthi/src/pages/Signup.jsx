@@ -68,7 +68,7 @@ else if(login){
   return (
     <>
       <Navbar />
-      <div style={{ backgroundColor: "white", minHeight: "100vh", padding: "20px" }}>
+      <div style={{ backgroundColor: "white",minHeight:'70vh',padding: "20px" }}>
         <Box
           component="form"
           sx={{

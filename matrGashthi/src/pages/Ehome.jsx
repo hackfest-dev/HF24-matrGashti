@@ -16,9 +16,6 @@ export default function Ehome(){
                 Donate
             </button>
                 </div>
-                
-            {/* footer */}
-           
             </div>
              <About/>
              <Footer/>
