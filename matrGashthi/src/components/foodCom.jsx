@@ -9,8 +9,8 @@ const FoodList = (props) => {
             <img src={food1Image} alt="Food 1" className="w-80 h-32 object-cover rounded-lg" />
           </div>
           <div className="ml-4">
-            <h2 className="text-lg font-semibold mb-2">Durga</h2>
-            <p className="text-sm text-gray-600 mb-4">In NMAMIT campus</p>
+            <h2 className="text-lg font-semibold mb-2">{props.name}</h2>
+            <p className="text-sm text-gray-600 mb-4">{}</p>
             
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
               Order Now

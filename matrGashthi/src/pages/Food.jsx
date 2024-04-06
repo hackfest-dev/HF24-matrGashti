@@ -39,7 +39,7 @@
 // }
 
 
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navigation';
 import FoodCom from '../components/foodCom';
 import Footer from '../components/Footer'; // Import your FoodCom component
