@@ -6,6 +6,8 @@ const FoodList = ({props}) => {
       <div className="mx-2">
         {/* Dummy item 1 */}
         <div className="bg-white justify-left items-center shadow-md rounded-lg p-4 mb-4 flex">
+
+
           <div>
             <img
               src={food1Image}
@@ -13,12 +15,14 @@ const FoodList = ({props}) => {
               className="w-80 h-32 object-cover rounded-lg"
             />
           </div>
+
+
           <div className="ml-4">
             <h2 className="text-lg font-semibold mb-2">{props.description}</h2>
             {/* <p className="text-sm text-gray-600 mb-4">{}</p> */}
            
-           { props.items.map((data, index) =>(
-            <div key={index}>
+            {props.items.map((data, index) =>(
+            <div key={index} className='flex space-x-2'>
               <p className="text-sm text-gray-600 mb-4">{data.name}</p>
               <p className="text-sm text-gray-600 mb-4">{data.quantity}</p>
             </div>
@@ -28,6 +32,8 @@ const FoodList = ({props}) => {
               Order Now
             </button>
           </div>
+
+
         </div>
       </div>
     );

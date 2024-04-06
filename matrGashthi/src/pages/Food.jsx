@@ -79,14 +79,16 @@ const url = "http://localhost:3001/food";
             setData(value);
         }
     }
-   useEffect(() => {
-     getFoods();
-   }, []); 
+//    useEffect(() => {
+//      getFoods();
+//    }, []); 
     function handleSubmit(e) {
     
         e.preventDefault(); // Prevents the default form submission behavior
         console.log(data);
         setShowFoodCom(true); // Show FoodCom components when form is submitted
+             getFoods();
+
        
     }
 
