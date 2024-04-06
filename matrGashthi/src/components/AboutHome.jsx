@@ -1,10 +1,9 @@
 import React from 'react';
 import Navbar from './Navigation';
 import Footer from './Footer';
-const AboutComponent = () => {
+const About2 = () => {
   return (
     <>
-    <Navbar/>
     <div className="mx-24 mt-8 px-4 py-8 mb-10 bg-white shadow-md rounded-lg h-screen">
       <h2 className="text-4xl font-bold mb-4 text-center">Our Mission</h2>
       <p className="text-gray-700 mb-4 text-2xl">
@@ -15,9 +14,9 @@ const AboutComponent = () => {
           sustainability in our communities. Join us in our mission to create a world where no good food goes to waste.
       </p>
     </div>
-     <Footer/>
+     
     </>
   );
 };
 
-export default AboutComponent;
+export default About2;

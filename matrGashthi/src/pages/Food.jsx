@@ -45,6 +45,7 @@ import FoodCom from '../components/foodCom';
 import Footer from '../components/Footer'; // Import your FoodCom component
 import axios from 'axios';
 
+
 export default function Food() {
     const [data, setData] = useState(0);
     const [showFoodCom, setShowFoodCom] = useState(false); // State to control visibility of FoodCom components
