@@ -13,12 +13,12 @@ const FoodList = (props) => {
                     <h2 className="text-lg font-semibold mb-2">{props.description}</h2>
                     {/* <p className="text-sm text-gray-600 mb-4"></p> */}
                     {
-                        props.items.map((data, index) => (
+                        props.items.map((data, index) => {
                             <div key={index}>
                                 <p className="text-sm text-gray-600 mb-4">{data.name}</p>
                                 <p className="text-sm text-gray-600 mb-4">{data.quantity}</p>
                             </div>
-                        ))
+                    })
                     }
                     <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                         Order Now

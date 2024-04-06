@@ -21,7 +21,7 @@ export default function App(){
       <Route path='/About' element={<About/>}/>
       <Route path='/Booking' element={<Booking/>}/>
       <Route path="/Profile" element={<Profile/>}/>
-      <Menu />
+      <Route path="/Menu" element={<Menu/>}/>
     </Routes>
   )
 }

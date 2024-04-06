@@ -60,7 +60,7 @@ export const Modal = ({closeModal, onSubmit, defaultValue}) => {
                     <input name='quantity' value={formState.quantity} onChange={handleChange}/>
                 </div>
                 {errors && <div className='error'>{`Please include: ${errors}`}</div>}
-                <button type='submit' className='btn' onClick={handleSubmit}>Submit</button>
+                <button type='submit' className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md" onClick={handleSubmit}>Submit</button>
             </form>
         </div>
     </div>

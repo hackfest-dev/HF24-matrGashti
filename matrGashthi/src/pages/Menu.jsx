@@ -3,6 +3,8 @@ import { useState } from 'react'
 import React from 'react'
 import Table from '../components/Table'
 import { Modal } from '../components/Modal'
+import './Menu.css'
+import Navbar from '../components/Navigation';
 
 const Menu = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -35,9 +37,11 @@ const Menu = () => {
     };
 
   return (
+    <>
+    <Navbar/>   
     <div className='Menu'>
         <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow}/>
-        <button className='btn' onClick={() => setModalOpen(true)}>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md" onClick={() => setModalOpen(true)}>
             Add
         </button>
         {modalOpen && (
@@ -50,6 +54,7 @@ const Menu = () => {
          />
         )}
     </div>
+    </>
   )
 }
 
