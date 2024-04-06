@@ -4,7 +4,7 @@ import Footer from './Footer';
 const About2 = () => {
   return (
     <>
-    <div className="mx-24 mt-8 px-4 py-8 mb-10 bg-white shadow-md rounded-lg h-screen">
+    <div className="mx-24 mt-8 px-4 py-8 mb-10 bg-white shadow-md rounded-lg">
       <h2 className="text-4xl font-bold mb-4 text-center">Our Mission</h2>
       <p className="text-gray-700 mb-4 text-2xl">
         Our innovative platform offers a real-time system designed to connect surplus food from various sources 
@@ -18,5 +18,4 @@ const About2 = () => {
     </>
   );
 };
-
 export default About2;
