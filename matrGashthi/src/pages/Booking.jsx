@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Navbar from "../components/Navigation";
 import AddItem from "../components/AddItem";
 import Dummy from "../components/Dummy";
+import { useParams } from 'react-router-dom';
 
 export default function Booking() {
+    const { restaurantId } = useParams();
     // State to manage selected food items
     const [selectedFoods, setSelectedFoods] = useState([]);
     // State to track if the "Add item" button has been clicked
