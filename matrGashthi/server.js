@@ -9,6 +9,7 @@ import passport from "passport";
 // import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -48,6 +49,7 @@ app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
+app.use(cookieParser());  
 
 app.listen(port, () => {
   console.log("server is running");
@@ -139,7 +141,13 @@ app.post("/rating/:raterId/:donorId", (req,  res) => {
 
 app.post("/profile/new", async (req,  res) => {
   try {
-    const { email, name, password, latitude,longitude, role } = req.body;
+
+    const thisuser = await prisma.user.findFirst({where:{email:req.body.email}})
+    if(thisuser){
+      console.log("user exists brother!")
+      return res.send("USER ALREADY EXISTS!")
+    }
+    const { email, name, password, latitude,longitude } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user using Prisma
@@ -154,7 +162,25 @@ app.post("/profile/new", async (req,  res) => {
       },
     });
 
-    return res.status(201).json(newUser); 
+     const data = {
+      user: {
+        id: newUser.id,
+      },
+    };
+    const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
+    // console.log(newUser,token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 3600000,
+    }); 
+    let Token = req.cookies.token;
+    console.log({ success: true, token, cookie: req.cookies });
+    return res.json({ success: true, token, cookie: Token });
+     
+     
+
+    // return res.status(201).json(newUser); 
     // Respond with the newly created user
     // console.log(req.body);
 
@@ -208,7 +234,7 @@ app.post("/profile/new", async (req,  res) => {
 app.post("/login", async (req,  res) => {
   try {
     const user = await prisma.user.findFirst({
-      where: { username: req.body.username },
+      where: { name: req.body.username },
     });
 
     if (user) {
@@ -223,6 +249,15 @@ app.post("/login", async (req,  res) => {
           },
         };
         const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
+        console.log(token);
+         res.cookie("token", token, {
+           httpOnly: true,
+           secure: true,
+           maxAge: 3600000,
+         }); 
+         console.log("cookie")
+         console.log(req);
+         console.log("cookie");
         return res.json({ success: true, token });
      
       } else {
