@@ -129,7 +129,6 @@ const url = "http://localhost:3001/food";
           {menus.map((menu) => (
             <div key={menu.id}>
               <FoodCom key={menu.id} props={menu} />
-              <h2>some hotels</h2>
             </div>
           ))}
         </div>
