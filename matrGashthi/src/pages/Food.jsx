@@ -67,7 +67,7 @@ export default function Food() {
     return (
         <>
             <Navbar/>
-            <div className="flex justify-center items-center min-h-72">
+            <div className="flex justify-center items-center flex-grow min-h-96">
                 <div className="bg-gray-100 p-8 rounded-lg shadow-md  w-full max-w-lg">
                     <h1 className="text-2xl font-bold mb-4">Food Delivery Distance</h1>
                     <form onSubmit={handleSubmit}>
