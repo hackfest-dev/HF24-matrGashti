@@ -44,6 +44,7 @@ import Navbar from '../components/Navigation';
 import FoodCom from '../components/foodCom';
 import Footer from '../components/Footer'; // Import your FoodCom component
 
+
 export default function Food() {
     const [data, setData] = useState(0);
     const [showFoodCom, setShowFoodCom] = useState(false); // State to control visibility of FoodCom components
